@@ -1,0 +1,48 @@
+# /etc/caddy/Caddyfile
+#
+# The whole site, with automatic HTTPS from Let's Encrypt, in one screen.
+# Caddy is the lowest-effort option on a small server: no certbot, no timers,
+# no renewal cron. Point the DNS A/AAAA record at the box first, then:
+#
+#   sudo cp deploy/Caddyfile /etc/caddy/Caddyfile
+#   sudo systemctl reload caddy
+
+www.leaveo.net {
+	redir https://leaveo.net{uri} permanent
+}
+
+leaveo.net {
+	root * /var/www/larva
+	encode zstd gzip
+
+	header {
+		Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'self'"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "geolocation=(), microphone=(), camera=()"
+		X-Frame-Options "DENY"
+		# No includeSubDomains: this site sits on the leaveo.net apex, and that
+		# directive would force HTTPS-only on every leaveo.net subdomain — the
+		# product app at app.leaveo.net included — for a year, from here.
+		Strict-Transport-Security "max-age=31536000"
+		-Server
+	}
+
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=604800"
+
+	@html path *.html /
+	header @html Cache-Control "public, max-age=0, must-revalidate"
+
+	@dotfiles path /.*
+	respond @dotfiles 404
+
+	try_files {path} {path}.html {path}/
+	file_server
+
+	handle_errors {
+		@404 expression {err.status_code} == 404
+		rewrite @404 /404.html
+		file_server
+	}
+}

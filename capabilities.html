@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capabilities — Larva</title>
+<meta name="description" content="What Larva builds, runs and defends: multi-tenant SaaS back ends, accessible React front ends, Arabic and RTL, billing, integrations, test architecture, platform and recovery engineering.">
+<link rel="canonical" href="https://leaveo.net/capabilities.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/site.css?v=ded0203e">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Capabilities — Larva">
+<meta property="og:description" content="What Larva builds, runs and defends: multi-tenant SaaS back ends, accessible React front ends, Arabic and RTL, billing, integrations, test architecture, platform and recovery engineering.">
+<meta property="og:url" content="https://leaveo.net/capabilities.html">
+<meta name="theme-color" content="#0A3C49">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="/">
+      <svg viewBox="7 0.5 47.5 55.5" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="larva-g-h" gradientUnits="userSpaceOnUse" x1="19" y1="9" x2="52" y2="52">
+            <stop offset="0" stop-color="#1FBFCB"/>
+            <stop offset=".42" stop-color="#3A70D2"/>
+            <stop offset="1" stop-color="#7B4BD6"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke="url(#larva-g-h)" stroke-linecap="butt">
+            <path d="M18.99 21.29A17.5 17.5 0 0 0 15.11 28.41" stroke-width="12.5"/>
+            <path d="M14.83 29.60A17.5 17.5 0 0 0 15.14 37.71" stroke-width="13.0"/>
+            <path d="M15.51 38.87A17.5 17.5 0 0 0 19.93 45.67" stroke-width="12.4"/>
+            <path d="M20.85 46.48A17.5 17.5 0 0 0 28.12 50.07" stroke-width="11.2"/>
+            <path d="M29.32 50.29A17.5 17.5 0 0 0 37.41 49.64" stroke-width="9.6"/>
+            <circle cx="14.96" cy="29.00" r="2.1" stroke-width="1.4"/>
+            <circle cx="15.32" cy="38.29" r="2.1" stroke-width="1.4"/>
+            <circle cx="20.38" cy="46.09" r="2.1" stroke-width="1.4"/>
+            <circle cx="28.72" cy="50.19" r="2.1" stroke-width="1.4"/>
+        </g>
+        <g fill="url(#larva-g-h)">
+            <ellipse cx="26" cy="16.2" rx="9.6" ry="8.2" transform="rotate(-12 26 16.2)"/>
+            <circle cx="20.2" cy="3.0" r="1.5"/>
+            <circle cx="34.2" cy="3.4" r="1.5"/>
+            <rect x="40.8" y="48.2" width="3.2" height="3.2" rx="0.64"/>
+            <rect x="44.7" y="45.9" width="2.4" height="2.4" rx="0.48"/>
+            <rect x="47.2" y="49.6" width="1.8" height="1.8" rx="0.36"/>
+            <rect x="50.0" y="46.8" width="1.4" height="1.4" rx="0.28"/>
+            <rect x="52.3" y="49.1" width="1.05" height="1.05" rx="0.21"/>
+        </g>
+        <g fill="none" stroke="url(#larva-g-h)" stroke-width="1.5" stroke-linecap="round">
+            <path d="M23.4 8.4Q21.1 5 20.4 3.7"/>
+            <path d="M28.9 8.1Q32.2 4.8 33.8 3.9"/>
+        </g>
+        <circle cx="29.1" cy="15.3" r="1.85" fill="#FFFFFF"/>
+</svg>
+      <span>Larva<small>Software that evolves</small></span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="sr-only">Menu</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/capabilities.html" aria-current="page">Capabilities</a>
+      <a href="/leaveo.html">Leaveo</a>
+      <a href="/contact.html">Contact</a>
+      <a class="btn btn-primary" href="/contact.html">Talk to us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="section section--tint">
+    <div class="wrap">
+      <p class="eyebrow">Capabilities</p>
+      <h1>What we can actually build, run and defend.</h1>
+      <p class="lede">Everything below is capability we exercise on our own platform, not a list of technologies we have read about. Where something is built but not yet released, we say so.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="cap">
+        <div>
+          <h3>Multi-tenant SaaS back ends</h3>
+          <p class="cap__note">The authoritative half of the product.</p>
+        </div>
+        <div>
+          <p>We build stateless APIs over a managed relational database, with tenancy enforced in the authorization layer rather than hoped for in queries. Business rules, working-day arithmetic, entitlement math and audit history live on the server, where they can be tested once and trusted everywhere.</p>
+          <p>Scheduled and durable work runs through database-leased workers with an inbox/outbox pattern, so a retry never double-charges and a crash never loses an event.</p>
+          <ul class="tags"><li>Java</li><li>Spring Boot</li><li>MySQL</li><li>Flyway</li><li>REST + OpenAPI</li><li>Tenant isolation</li><li>Audit trails</li></ul>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div>
+          <h3>Modern, accessible web front ends</h3>
+          <p class="cap__note">Three deployable surfaces, one design system.</p>
+        </div>
+        <div>
+          <p>Single-page applications built on React and TypeScript, compiled to immutable static artifacts that any edge or web server can hand out. Our platform ships three of them — a public marketing surface, the customer application, and a separate operator console — so a change to one cannot widen the blast radius of another.</p>
+          <p>Chrome comes from shared primitives: one modal built on the native dialog element, one toast system, one icon set, one token file that owns every colour and spacing value. Feature code composes; it does not redefine.</p>
+          <ul class="tags"><li>React</li><li>TypeScript</li><li>Vite</li><li>React Query</li><li>Design tokens</li><li>WCAG AA</li><li>Lazy routes</li></ul>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div>
+          <h3>Internationalisation and right-to-left</h3>
+          <p class="cap__note">Arabic as a first-class language, not a mirrored screenshot.</p>
+        </div>
+        <div>
+          <p>Language is a persisted user preference resolved on the server, so a person's choice follows them across devices and sessions instead of living in one browser. Every user-facing string goes through a translation layer with feature-namespaced keys, and key parity between locales is enforced by a verification step in the build rather than by review.</p>
+          <p>Layout uses logical CSS properties so direction flips cleanly, and user-entered data — names, teams, leave types — is rendered with automatic direction detection instead of being translated or reordered.</p>
+          <ul class="tags"><li>English &amp; Arabic</li><li>RTL layout</li><li>Plural categories</li><li>Locale parity checks</li><li>Logical properties</li></ul>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div>
+          <h3>Billing, subscriptions and commercial plumbing</h3>
+          <p class="cap__note">The part most products get wrong quietly.</p>
+        </div>
+        <div>
+          <p>Hosted checkout with a payment provider, signature-verified webhooks, and an idempotent event pipeline so a replayed or out-of-order notification cannot corrupt subscription state. Seat quantity reconciles to the authoritative active-user count; pending invitations reserve capacity without being billed.</p>
+          <p>We model the unglamorous cases explicitly: first payment failure gets a recovery period before restriction, cancellation preserves paid-through access, downgrades apply at renewal after limit checks, and an operator fallback exists for every self-service path.</p>
+          <ul class="tags"><li>Stripe</li><li>Webhook idempotency</li><li>Seat reconciliation</li><li>Dunning &amp; recovery</li><li>Plan catalog as authority</li></ul>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div>
+          <h3>Integrations with the tools people already use</h3>
+          <p class="cap__note">Built on our platform; released per plan as they pass their gates.</p>
+        </div>
+        <div>
+          <p>Calendar synchronisation behind a single provider adapter — Google Calendar and Microsoft Graph — plus a plain ICS subscription feed that works with anything, including Apple Calendar, without an OAuth dance. Refresh tokens are encrypted at rest, state is single-use and hashed, and a scheduled poller retries failures per event rather than abandoning a whole batch.</p>
+          <p>Team chat delivery through Slack and Microsoft Teams incoming webhooks for channel digests and approval announcements, and a Slack application for personal direct messages, with users matched by verified email.</p>
+          <ul class="tags"><li>Google Calendar</li><li>Microsoft Graph</li><li>ICS feeds</li><li>Slack</li><li>Microsoft Teams</li><li>OAuth token custody</li></ul>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div>
+          <h3>Quality and test architecture</h3>
+          <p class="cap__note">A pyramid with a written rule for every layer.</p>
+        </div>
+        <div>
+          <p>The server is the authority for validation, so business rules are proven once with parameterised API tests asserting real problem responses. Component tests cover only what genuinely lives in the client — password confirmation, modal guards, interaction affordances — instead of mirroring every server constraint into a second, weaker copy.</p>
+          <p>End-to-end tests are deliberately sparse, tagged into an enforced smoke and regression taxonomy, and reserved for journeys where a user genuinely cannot proceed without visible feedback. Every requirement is traced to the tests covering it, and the release gate reads that trace.</p>
+          <ul class="tags"><li>JUnit</li><li>Vitest</li><li>Playwright</li><li>Testcontainers</li><li>Traceability matrix</li><li>Red-phase first</li></ul>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div>
+          <h3>Platform, release and recovery engineering</h3>
+          <p class="cap__note">Boring on purpose.</p>
+        </div>
+        <div>
+          <p>Infrastructure defined as code with locked providers, reviewed plans and per-environment remote state. The API ships as one immutable Linux image addressed by digest; web artifacts publish independently. Database migration runs as its own role with a DDL credential while the running application holds only DML rights.</p>
+          <p>Releases are ordered so old and new processes coexist against an expanded schema, feature controls enable behaviour after the code is already out, and contraction happens a release later. Recovery is rehearsed: point-in-time restore, an independently administered encrypted copy, and a restore drill on a schedule with recorded recovery objectives.</p>
+          <ul class="tags"><li>OpenTofu</li><li>OCI images by digest</li><li>Expand and contract</li><li>Role-separated credentials</li><li>PITR + offsite backups</li><li>Restore drills</li></ul>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div>
+          <h3>Privacy, consent and access boundaries</h3>
+          <p class="cap__note">Default to less.</p>
+        </div>
+        <div>
+          <p>Customer sessions and operator sessions are separate realms with separate logins, token audiences and cookies — the operator console is not linked from public navigation and does not share a session with anyone's workspace. Public content and both sign-in paths work fully with analytics declined.</p>
+          <p>Optional measurement stays off until the current policy version is accepted, choices are stored as versioned receipts, and event payloads are minimised by design: no names, no email addresses, no raw addresses, no leave content, no balances.</p>
+          <ul class="tags"><li>Realm separation</li><li>Versioned consent receipts</li><li>Data minimisation</li><li>Abuse controls</li><li>Necessary-only by default</li></ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How we engage</p>
+        <h2>Three ways this usually starts.</h2>
+      </div>
+      <div class="grid grid-3">
+        <article class="card">
+          <h3>Use our product</h3>
+          <p>Leaveo, self-service. Free forever for up to five active people, paid per active user above that, assisted setup for larger or migrating organisations.</p>
+        </article>
+        <article class="card">
+          <h3>Build a product with us</h3>
+          <p>You own the market and the customers; we own the engineering line — architecture, delivery, quality and operations — until it can be handed over cleanly.</p>
+        </article>
+        <article class="card">
+          <h3>Fix a specific problem</h3>
+          <p>A migration that has to be reversible, a billing integration that has to be idempotent, an application that has to work in Arabic. Scoped, evidenced, finished.</p>
+        </article>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="/contact.html">Start a conversation</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brandline">
+          <svg viewBox="7 0.5 47.5 55.5" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="larva-g-f" gradientUnits="userSpaceOnUse" x1="19" y1="9" x2="52" y2="52">
+                <stop offset="0" stop-color="#1FBFCB"/>
+                <stop offset=".42" stop-color="#3A70D2"/>
+                <stop offset="1" stop-color="#7B4BD6"/>
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke="url(#larva-g-f)" stroke-linecap="butt">
+                <path d="M18.99 21.29A17.5 17.5 0 0 0 15.11 28.41" stroke-width="12.5"/>
+                <path d="M14.83 29.60A17.5 17.5 0 0 0 15.14 37.71" stroke-width="13.0"/>
+                <path d="M15.51 38.87A17.5 17.5 0 0 0 19.93 45.67" stroke-width="12.4"/>
+                <path d="M20.85 46.48A17.5 17.5 0 0 0 28.12 50.07" stroke-width="11.2"/>
+                <path d="M29.32 50.29A17.5 17.5 0 0 0 37.41 49.64" stroke-width="9.6"/>
+                <circle cx="14.96" cy="29.00" r="2.1" stroke-width="1.4"/>
+                <circle cx="15.32" cy="38.29" r="2.1" stroke-width="1.4"/>
+                <circle cx="20.38" cy="46.09" r="2.1" stroke-width="1.4"/>
+                <circle cx="28.72" cy="50.19" r="2.1" stroke-width="1.4"/>
+            </g>
+            <g fill="url(#larva-g-f)">
+                <ellipse cx="26" cy="16.2" rx="9.6" ry="8.2" transform="rotate(-12 26 16.2)"/>
+                <circle cx="20.2" cy="3.0" r="1.5"/>
+                <circle cx="34.2" cy="3.4" r="1.5"/>
+                <rect x="40.8" y="48.2" width="3.2" height="3.2" rx="0.64"/>
+                <rect x="44.7" y="45.9" width="2.4" height="2.4" rx="0.48"/>
+                <rect x="47.2" y="49.6" width="1.8" height="1.8" rx="0.36"/>
+                <rect x="50.0" y="46.8" width="1.4" height="1.4" rx="0.28"/>
+                <rect x="52.3" y="49.1" width="1.05" height="1.05" rx="0.21"/>
+            </g>
+            <g fill="none" stroke="url(#larva-g-f)" stroke-width="1.5" stroke-linecap="round">
+                <path d="M23.4 8.4Q21.1 5 20.4 3.7"/>
+                <path d="M28.9 8.1Q32.2 4.8 33.8 3.9"/>
+            </g>
+            <circle cx="29.1" cy="15.3" r="1.85" fill="#FFFFFF"/>
+</svg>
+          Larva
+        </span>
+        <p>An independent software company. Owner and operator of Leaveo.</p>
+      </div>
+
+      <div>
+        <h3>Company</h3>
+        <ul>
+          <li><a href="/capabilities.html">Capabilities</a></li>
+          <li><a href="/leaveo.html">Leaveo</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Leaveo</h3>
+        <ul>
+          <li><a href="/leaveo.html">About Leaveo</a></li>
+          <li><a href="/leaveo.html#plans">Plans</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Registered office</h3>
+        <address class="footer-addr"><!--larva:address-->Larva LLC<br>Cairo<br>Egypt<!--/larva:address--></address>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; <span data-year>2026</span> Larva LLC. Leaveo is a Larva product. All rights reserved.</span>
+      <span><a href="mailto:support@leaveo.net">support@leaveo.net</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js?v=2b8a413d" defer></script>
+</body>
+</html>
