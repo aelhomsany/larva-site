@@ -227,13 +227,21 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 3rem 0; }
 }
 
 .site-nav { display: flex; align-items: center; gap: 1.6rem; }
-.site-nav a {
+/* :not(.btn) matters. The header CTA is an <a class="btn"> inside .site-nav, so
+   it matches this selector too — and at (0,1,1) this rule outranks .btn (0,1,0),
+   which silently stripped the button's horizontal padding and overrode its text
+   colour with the muted nav-link colour. Keep the guard on every rule here. */
+.site-nav a:not(.btn) {
   text-decoration: none; font-size: .95rem; font-weight: 550;
   color: var(--ink-muted); padding: .35rem 0;
   border-bottom: 2px solid transparent;
 }
-.site-nav a:hover { color: var(--ink); }
-.site-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--seafoam); }
+.site-nav a:not(.btn):hover { color: var(--ink); }
+.site-nav a:not(.btn)[aria-current="page"] { color: var(--ink); border-bottom-color: var(--seafoam); }
+
+/* A header CTA sits beside 15px nav links in a 68px bar, so it is a size down
+   from the page-level buttons rather than the same chunky pill. */
+.site-nav .btn { padding: .55rem 1.15rem; font-size: .92rem; }
 
 .nav-toggle {
   display: none;
@@ -251,7 +259,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 3rem 0; }
     box-shadow: var(--shadow);
   }
   .site-nav[hidden] { display: none; }
-  .site-nav a { padding: .8rem 0; border-bottom: 1px solid var(--line); }
+  .site-nav a:not(.btn) { padding: .8rem 0; border-bottom: 1px solid var(--line); }
   .site-nav a[aria-current="page"] { border-bottom-color: var(--line); color: var(--ocean); }
   .site-nav .btn { margin-top: 1rem; justify-content: center; }
 }
