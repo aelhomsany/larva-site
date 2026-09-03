@@ -15,6 +15,9 @@ leaveo.net {
 	root * /var/www/larva
 	encode zstd gzip
 
+	# The inline <script type="application/ld+json"> on every page needs no hash
+	# and no 'unsafe-inline': a script element with a non-JavaScript type is a
+	# data block, never executed, so script-src does not apply to it.
 	header {
 		Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'self'"
 		X-Content-Type-Options "nosniff"

@@ -26,8 +26,12 @@ larva-site/
 │   ├── css/site.css      The entire design system, one file
 │   ├── js/site.js        Mobile nav toggle + footer year. That is all it does.
 │   └── img/              larva-mark.svg, leaveo-mark.svg
+│                         og-card.png, larva-logo.png  (generated — see § 5)
 ├── scripts/
-│   └── set-contact.sh    Replaces the placeholder address/emails/domain everywhere
+│   ├── set-contact.sh    Replaces the placeholder address/emails/domain everywhere
+│   ├── make-images.sh    Rasterises the two PNGs above, using headless Chrome
+│   ├── og-card.html      Source of og-card.png (the social share card)
+│   └── logo-card.html    Source of larva-logo.png (the schema.org logo)
 └── deploy/
     ├── nginx.conf        Static server block, hardened, with caching
     ├── Caddyfile         Same thing with automatic HTTPS, if you prefer Caddy
@@ -39,6 +43,9 @@ larva-site/
 third-party requests — no fonts, no CDN, no analytics, no trackers, and the logo is
 inline SVG rather than an image request — which is why the Content-Security-Policy in
 the server config can be as strict as it is.
+
+`og-card.png` (377 KB) does not count against that. Nothing on the site references it;
+it exists only for link-preview scrapers, which fetch it out of band.
 
 ### Verified, not assumed
 
@@ -357,9 +364,66 @@ HTML is served with `must-revalidate`, so a deploy is visible immediately. Asset
 either rename the file and update the five `<link>` tags, or lower that `expires` value
 in the server config.
 
+**The two PNGs are not fingerprinted.** `deploy.sh` stamps only `site.css` and
+`site.js`. `og-card.png` and `larva-logo.png` keep stable URLs on purpose, because those
+URLs are quoted verbatim inside `og:image` and the JSON-LD, and scrapers cache them
+hard. Regenerate with:
+
+```bash
+./scripts/make-images.sh
+```
+
+Editing `scripts/og-card.html` and re-running is enough — but because the URL does not
+change, LinkedIn, Slack and Facebook will keep serving the old card from their own
+caches for days. Re-scrape it deliberately in the LinkedIn Post Inspector or Facebook
+Sharing Debugger, or give the new file a new name and update the four `og:image` tags.
+
 ---
 
-## 6. What the site claims, and why
+## 6. SEO
+
+There is no plugin and no build step, because there is nothing for one to do: the
+markup *is* the source. Everything a plugin like Yoast would generate is a hand-edited
+tag in these files.
+
+In place on every page: a unique `<title>` and `<meta name="description">` (all under
+155 characters, so nothing is truncated in the results page), `<link rel="canonical">`,
+the full Open Graph set including `og:image`, `twitter:card`, `<html lang="en">`, one
+`<h1>`, and a clean heading hierarchy. `sitemap.xml` carries `lastmod`; `robots.txt`
+points at it. `404.html` is `noindex, follow` and carries no canonical — an error page
+must not compete with a real one.
+
+**Structured data.** Every page carries a schema.org `Organization` block for Larva
+LLC; `leaveo.html` adds a `SoftwareApplication` block whose `publisher` points back at
+that Organization by `@id`. Neither declares `offers` or `aggregateRating`. That is
+deliberate — the site quotes no prices (§ 7 explains why) and inventing a rating would
+be a lie — so Google's Rich Results Test will report those two as *recommended missing
+fields*. That warning is expected. Do not satisfy it with made-up numbers.
+
+**The CSP does not block the JSON-LD, and it does not need a hash.** A `<script>`
+element whose `type` is not JavaScript is a data block: it is never executed, so
+`script-src` never applies to it. This was checked against the real policy — the JSON-LD
+parsed out of the DOM cleanly while a genuine inline script on the same page was
+blocked with a console error. If someone later tells you the structured data needs
+`'unsafe-inline'`, they are wrong, and the cost of believing them is the whole
+Content-Security-Policy.
+
+**What is left is not markup.** The domain has served a parking page until now, so it
+has no index history and no inbound links. Expect indexing within days of going live,
+and expect to win searches for *Leaveo* — a distinctive term with no competition. Do
+not expect to win *Larva*, which belongs to the insect and to a Korean cartoon, and
+which no amount of on-page work will take from them.
+
+**The one thing worth doing after launch** is Google Search Console — not a plugin: a
+DNS TXT record or an HTML verification file, then submit `sitemap.xml`. It reports the
+queries people actually used, with nothing added to the page. Bing Webmaster Tools is
+the same shape. Resist analytics scripts; GA4 would break the CSP, add third-party
+requests to a site that currently has none, and cost the privacy claim on the contact
+page for data Search Console largely gives you free.
+
+---
+
+## 7. What the site claims, and why
 
 The copy is drawn from the actual state of the platform repositories, not from
 aspiration. Two rules were applied while writing it:
