@@ -87,7 +87,38 @@
   },
   "provider": {
     "@id": "https://leaveo.net/#larva"
-  }
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Free",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "1-5 active users. No card required, renews at $0.",
+      "url": "https://leaveo.net/leaveo.html#plans",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "name": "Growth",
+      "price": "1.00",
+      "priceCurrency": "USD",
+      "description": "Up to 200 active users, billed monthly per active user.",
+      "url": "https://leaveo.net/leaveo.html#plans",
+      "availability": "https://schema.org/InStock",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "1.00",
+        "priceCurrency": "USD",
+        "unitText": "active user per month",
+        "referenceQuantity": {
+          "@type": "QuantitativeValue",
+          "value": 1,
+          "unitText": "active user"
+        }
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -266,11 +297,11 @@
       <div class="section-head">
         <p class="eyebrow">Plans</p>
         <h2>Free is not a trial.</h2>
-        <p class="lede">Free is permanent, capped by active people rather than by time, and never asks for a card. There is one paid plan, priced per active user per month; pending invitations reserve a seat but are not billed until accepted.</p>
+        <p class="lede">Free is permanent, capped by active people rather than by time, and never asks for a card. There is one paid plan, at $1 per active user per month; pending invitations reserve a seat but are not billed until accepted.</p>
       </div>
       <ul class="plainlist">
         <li><strong>Free</strong> <span>1&ndash;5 active users · $0 forever · no card · verified self-service sign-up</span></li>
-        <li><strong>Growth</strong> <span>Up to 200 active users · per active user, monthly · self-service</span></li>
+        <li><strong>Growth</strong> <span>Up to 200 active users · $1 per active user, per month · self-service</span></li>
         <li><strong>Contact Sales</strong> <span>Over 200 users, or migration and complex implementation · assisted, agreed before provisioning</span></li>
       </ul>
       <p class="cap__note mt-1">Growth starts at one user, not at six. A team of five that wants the paid capabilities can buy it — sign-up simply recommends Free at that size, because Free is the better deal there.</p>
@@ -278,7 +309,7 @@
         <a class="btn btn-primary" href="/contact.html">Talk to Larva</a>
         <a class="btn btn-outline" href="mailto:sales@leaveo.net">Email sales</a>
       </div>
-      <p class="cap__note mt-1">This page describes the tiers, not the amounts. Prices are held in the plan catalog inside the product, and the Leaveo pricing page that publishes them is not live yet — ask us and we will send you the current figures rather than a number that has gone stale on a marketing page.</p>
+      <p class="cap__note mt-1">The $1 is US dollars, per active user, per month, and it is the figure held in the plan catalog inside the product — the same one checkout charges. Contact Sales is quoted individually, because at that size the work is migration and implementation rather than seats alone.</p>
     </div>
   </section>
 
